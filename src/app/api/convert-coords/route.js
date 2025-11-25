@@ -10,7 +10,14 @@ export async function POST(request) {
     }
 
     // 百度地图API密钥
-    const BAIDU_AK = 'RvYi4hGCpKRNHLCECx62JWSYUHKsDuP1';
+    const BAIDU_AK = process.env.BAIDU_AK;
+    
+    if (!BAIDU_AK) {
+      return Response.json(
+        { error: 'API密钥未配置' },
+        { status: 500 }
+      );
+    }
 
     // 格式化坐标：将下划线分隔转换为分号分隔
     // 用户输入格式：121.081369,29.266251_121.081305,29.264978

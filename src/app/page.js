@@ -22,7 +22,12 @@ export default function Home() {
 
     // 动态加载百度地图API
     const script = document.createElement('script');
-    script.src = `https://api.map.baidu.com/api?v=3.0&ak=jk0aVICjXvcAMskMUWEDGYtFeT1XOlYw&callback=initBaiduMap`;
+    const baiduMapAk = process.env.NEXT_PUBLIC_BAIDU_MAP_AK;
+    if (!baiduMapAk) {
+      console.error('百度地图API Key未配置，请在.env.local文件中设置NEXT_PUBLIC_BAIDU_MAP_AK');
+      return;
+    }
+    script.src = `https://api.map.baidu.com/api?v=3.0&ak=${baiduMapAk}&callback=initBaiduMap`;
     script.async = true;
     script.defer = true;
 
