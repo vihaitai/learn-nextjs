@@ -43,6 +43,7 @@ export default function Home() {
         delete window.initBaiduMap;
       }
       if (script.parentNode) {
+        // 找到父节点来移除自己
         script.parentNode.removeChild(script);
       }
     };
@@ -116,7 +117,7 @@ export default function Home() {
       await navigator.clipboard.writeText(formattedCoords);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-    } catch (err) {
+    } catch {
       // 降级方案：使用传统方法
       const textArea = document.createElement('textarea');
       textArea.value = formattedCoords;
@@ -128,7 +129,7 @@ export default function Home() {
         document.execCommand('copy');
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
-      } catch (e) {
+      } catch {
         setError('复制失败，请手动复制');
       }
       document.body.removeChild(textArea);
